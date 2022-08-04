@@ -1,0 +1,81 @@
+<meta charset="UTF-8">
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorteio loteria</title>
+    <link href="estilo.css" rel="stylesheet">
+</head>
+<body>  
+    <center>
+        <div id="centralizar">
+            <button class="button button1"><h3>mega-sena</h3></button>
+            <button class="button button1"><h3>lotofácil</h3></button>
+            <button class="button button1"><h3>quina</h3></button>
+            <button class="button button1"><h3>lotomania</h3></button>                 
+        </div>
+        <input class="input" disabled="">
+    </center>
+</body>
+</html>
+<script>
+
+    var input = document.querySelector("input");
+    var button = document.querySelector("button");
+
+
+    var sorteio;
+
+
+
+    function sorteio(){
+
+        return Math.round(Math.random() * 60);
+    }
+
+    function sorteioLoteria(numeros){
+
+        var megaSena = [];
+        var contador = 1;
+
+
+        while(contador <= numeros){
+            var sorte = sorteio();
+
+            if(sorte != 0){
+                var achou = false;
+                for(var posicao = 0; posicao < megaSena.length; posicao++){
+                    if(megaSena[posicao] == sorte){
+                        achou = true;
+                        break;
+                    }              
+                }
+
+                if(achou == false){
+                    megaSena.push(sorte + " ");
+                    contador++;
+                }
+            }
+
+        }
+
+        return megaSena;
+    }
+
+
+
+    function chamaFuncao(){
+        var mostraLog = sorteioLoteria(6);
+        alert(mostraLog);
+    }
+
+
+    button.onclick = chamaFuncao;
+
+
+
+
+</script>
