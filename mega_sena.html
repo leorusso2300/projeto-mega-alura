@@ -1,81 +1,85 @@
 <meta charset="UTF-8">
-
-
-
-
 <!DOCTYPE html>
-<html>
 <head>
-    <title>Sorteio loteria</title>
-    <link href="estilo.css" rel="stylesheet">
+  <title>Sorteio loteria</title>
+  <link href="estilo.css" rel="stylesheet">
 </head>
-<body>  
-    <center>
-        <div id="centralizar">
-            <button class="button button1"><h3>mega-sena</h3></button>
-            <button class="button button1"><h3>lotofácil</h3></button>
-            <button class="button button1"><h3>quina</h3></button>
-            <button class="button button1"><h3>lotomania</h3></button>                 
-        </div>
-        <input class="input" disabled="">
-    </center>
+<body bgcolor="grey">
+  <center>
+    <div id="centralizar">
+      <button class="button button1" onclick="chamaMega()"><h3>mega-sena</h3></button>
+      <button class="button button1" onclick="chamaLoto();"><h3>lotofácil</h3></button>
+      <button class="button button1" onclick="chamaQuina();"><h3>quina</h3></button>
+    </div>
+    <input class="input" type="text" required name="txtstart" id="texto-usuario" value=""
+    style="font-family: Tahoma; font-size: 20px; text-align: center"; disabled>
+  </center>
 </body>
 </html>
 <script>
 
-    var input = document.querySelector("input");
-    var button = document.querySelector("button");
+  var input = document.querySelector("input");
 
 
-    var sorteio;
+  var sorteio;
 
 
 
-    function sorteio(){
+  function sorteio(numero){
 
-        return Math.round(Math.random() * 60);
-    }
+    return Math.round(Math.random() * numero);
+  }
 
-    function sorteioLoteria(numeros){
+  function sorteioLoteria(numeros,valorNumeros){
 
-        var megaSena = [];
-        var contador = 1;
+    var megaSena = [];
+    var contador = 1;
 
 
-        while(contador <= numeros){
-            var sorte = sorteio();
+    while(contador <= numeros){
+      var sorte = sorteio(valorNumeros);
 
-            if(sorte != 0){
-                var achou = false;
-                for(var posicao = 0; posicao < megaSena.length; posicao++){
-                    if(megaSena[posicao] == sorte){
-                        achou = true;
-                        break;
-                    }              
-                }
 
-                if(achou == false){
-                    megaSena.push(sorte + " ");
-                    contador++;
-                }
-            }
-
+      if(sorte != 0){
+        var achou = false;
+        for(var posicao = 0; posicao < megaSena.length; posicao++){
+          if(megaSena[posicao] == sorte){
+            achou = true;
+            break;
+          }
         }
 
-        return megaSena;
+        if(achou == false){
+          megaSena.push(sorte);
+          contador++;
+        }
+      }
+
     }
+    megaSena.sort(function(a, b){return a-b});
+    return megaSena;
+  }
+
+  var button = document.querySelector("button");
 
 
+  function chamaMega(){
+    var mostraLog = sorteioLoteria(6,60);
+    var numerosMegas = mostraLog.join(' - ')
+    document.querySelector("[name='txtstart']").value = numerosMegas;
 
-    function chamaFuncao(){
-        var mostraLog = sorteioLoteria(6);
-        alert(mostraLog);
-    }
+  }
+  function chamaLoto(){
+    var mostraLog = sorteioLoteria(15,25);
+    var numerosMegas = mostraLog.join(' - ')
+    document.querySelector("[name='txtstart']").value = numerosMegas;
 
+  }
+  function chamaQuina(){
+    var mostraLog = sorteioLoteria(5,80);
+    var numerosMegas = mostraLog.join(' - ')
+    document.querySelector("[name='txtstart']").value = numerosMegas;
 
-    button.onclick = chamaFuncao;
-
-
-
+  }
 
 </script>
